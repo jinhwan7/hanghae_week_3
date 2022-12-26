@@ -3,6 +3,7 @@ const app = express();
 const port = 3000;
 const commentRouter = require('./routes/comments.js');
 const postRouter = require('./routes/posts.js');
+const indeRouter = require('./routes/index.js');
 const connect = require("./schemas/index.js");
 connect();
 app.use(express.json());
@@ -12,7 +13,7 @@ app.get('/',(req,res)=>{
     res.send("점심먹는중입니다 12:30~")
 });
 
-app.use('/api',[postRouter,commentRouter])
+app.use('/api',indeRouter);
 
 
 app.listen(port, () =>{

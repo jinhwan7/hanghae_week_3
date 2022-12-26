@@ -4,7 +4,7 @@ const router = express.Router();
 const Posts = require('../schemas/post.js')
 
 //게시글 전체 조회
-router.get('/posts', async (req, res) => {
+router.get('/', async (req, res) => {
     const posts = await Posts.find({});
     console.log(posts);
     const renamePosts = []
@@ -23,7 +23,7 @@ router.get('/posts', async (req, res) => {
 });
 
 //게시글 상세 조회
-router.get('/posts/:postId', async (req, res) => {
+router.get('/:postId', async (req, res) => {
     const { postId } = req.params 
     console.log(postId);
     const post = await Posts.find({ _id:postId });
@@ -37,9 +37,8 @@ router.get('/posts/:postId', async (req, res) => {
 });
 
 //게시글작성
-router.post('/posts', async (req, res) => {
+router.post('/', async (req, res) => {
     const { user, password, title, content } = req.body;
-    const post_arr = Object.values(req.body);
     const date = new Date();
     date.setHours(date.getHours() + 9);
 
@@ -59,7 +58,7 @@ router.post('/posts', async (req, res) => {
 });
 
 //게시글 수정
-router.put('/posts/:postId', async(req,res) => {
+router.put('/:postId', async(req,res) => {
     const { postId } = req.params
     const { content } = req.body
     if ( postId === ""|| content === '') {
@@ -79,7 +78,7 @@ router.put('/posts/:postId', async(req,res) => {
 
 
 //게시글 삭제
-router.delete('/posts/:postId', async(req,res)=>{
+router.delete('/:postId', async(req,res)=>{
     const {postId} =req.params
     const {password} = req.body
     if ( postId === ""|| password === '') {

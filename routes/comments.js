@@ -8,7 +8,7 @@ const Comments = require('../schemas/comment.js')
 //     "password": "1234",  
 //     "content": "안녕하세요 댓글입니다."
 //     }
-router.post('/comments/:postId', async (req, res) => {
+router.post('/:postId', async (req, res) => {
     const { postId } = req.params;
     console.log(postId)
     const { user, password, content } = req.body;
@@ -26,7 +26,7 @@ router.post('/comments/:postId', async (req, res) => {
 });
 
 
-router.get('/comments/:postId', async (req, res) => {
+router.get('/:postId', async (req, res) => {
     const { postId } = req.params
     try {
         const comments = await Comments.find({ postId: postId });
@@ -49,7 +49,7 @@ router.get('/comments/:postId', async (req, res) => {
 });
 
 //댓글 수정
-router.put('/comments/:commentId', async (req, res) => {
+router.put('/:commentId', async (req, res) => {
     const { commentId } = req.params
     const {content} = req.body;
     try {
@@ -64,7 +64,7 @@ router.put('/comments/:commentId', async (req, res) => {
 
 
 //댓글 삭제
-router.delete('/comments/:commentId', async (req, res) => {
+router.delete('/:commentId', async (req, res) => {
     const {commentId} = req.params;
     try{
         await Comments.deleteOne({_id:commentId});     
