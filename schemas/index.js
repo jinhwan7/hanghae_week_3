@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 mongoose.set('strictQuery', true);
 const connect = () => {
-    mongoose.connect("mongodb://127.0.0.1:27017/node_beggin")
+    mongoose.connect("mongodb://localhost:27017/node_beggin")
         .catch(err => console.log(err));
 
     mongoose.connection.on("error", err => {
