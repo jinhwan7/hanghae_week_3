@@ -6,6 +6,7 @@ const Posts = require('../schemas/post.js')
 //게시글 전체 조회
 router.get('/posts', async (req, res) => {
     const posts = await Posts.find({});
+    console.log(posts);
     const renamePosts = []
     posts.forEach(post => {
         renamePosts.push({
