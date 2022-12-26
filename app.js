@@ -12,7 +12,7 @@ app.get('/',(req,res)=>{
     res.send("점심먹는중입니다 12:30~")
 });
 
-app.use('/api',[ commentRouter, postRouter ])
+app.use('/api',[postRouter,commentRouter])
 
 
 app.listen(port, () =>{
