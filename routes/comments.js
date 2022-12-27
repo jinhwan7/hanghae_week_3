@@ -51,8 +51,13 @@ router.get('/:postId', async (req, res) => {
 //댓글 수정
 router.put('/:commentId', async (req, res) => {
     const { commentId } = req.params
-    const {content} = req.body;
+    const { content } = req.body;
+
+
     try {
+        if(Boolean(content) === false){
+            return res.status(400).json({messege:"댓글을 써주세요"})
+        }
         await Comments.update({ _id: commentId }, { $set: { content: content } });
         res.status(200).json({ messege: "댓글이 수정되었습니다" });
     }catch(err){
