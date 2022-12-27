@@ -33,7 +33,7 @@ router.get('/:postId', async (req, res) => {
 
     console.log(post);
 
-    res.status(200).json({"data":""});
+    res.status(200).json({"data":post});
 });
 
 //게시글작성
