@@ -24,22 +24,31 @@ router.get('/', async (req, res) => {
 
 //게시글 상세 조회
 router.get('/:postId', async (req, res) => {
-    const { postId } = req.params 
+    const { postId } = req.params
     console.log(postId);
-    const post = await Posts.find({ _id:postId });
-    if(post.lengh === 0){
-        return res.json({"message":"그런 아이디는 없습니다"})
-    }
+    try {
+        const post = await Posts.find({ _id: postId });
+        if (post.lengh === 0) {
+            return res.json({ "message": "그런 아이디는 없습니다" })
+        } else {
+          const result = {
+                "postId": post[0]._id,
+                "user": post[0].user,
+                "title": post[0].title,
+                "createdAt": post[0].date
 
-    console.log(post);
-
-    res.status(200).json({"data":post});
+            }
+            res.status(200).json({ "data": result });
+        }
+    } catch {
+        res.status(400).json({ messege: "아이디 문제있어요" });
+    }    
 });
 
 //게시글작성
 router.post('/', async (req, res) => {
     const { user, password, title, content } = req.body;
-    
+
     const date = new Date();
     date.setHours(date.getHours() + 9);
 
@@ -59,16 +68,16 @@ router.post('/', async (req, res) => {
 });
 
 //게시글 수정
-router.put('/:postId', async(req,res) => {
+router.put('/:postId', async (req, res) => {
     const { postId } = req.params
     const { content } = req.body
-    if ( postId === ""|| content === '') {
+    if (postId === "" || content === '') {
         return res.status(400).json({ message: "데이터 형식이 올바르지 않습니다" });
     }
     console.log(postId);
 
-    const existPost = await Posts.find({_id: postId}); 
-    res.status(200).json({message:"게시글 수정됬어요"});
+    const existPost = await Posts.find({ _id: postId });
+    res.status(200).json({ message: "게시글 수정됬어요" });
     // try{
     //     const existPost = await Posts.find({_id: postId}); 
     //     if(existPost.length) {
@@ -82,24 +91,24 @@ router.put('/:postId', async(req,res) => {
 
 
 //게시글 삭제
-router.delete('/:postId', async(req,res)=>{
-    const { postId } =req.params
+router.delete('/:postId', async (req, res) => {
+    const { postId } = req.params
     const { password } = req.body
 
-    if ( postId === ""|| password === '') {
+    if (postId === "" || password === '') {
         return res.status(400).json({ message: "데이터 형식이 올바르지 않습니다" });
     }
-    try{
-        const existPost = await Posts.find({_id: postId}); 
+    try {
+        const existPost = await Posts.find({ _id: postId });
         console.log(existPost[0].password, password)
-        if(existPost.length && Number(existPost[0].password) === password){
-            await Posts.deleteOne({_id:postId});
-            res.status(200).json({message:"삭제완료"});
-        }else{
-            res.status(400).json({messaege:"비밀번호가 다릅니다"});
-        } 
-  
-    }catch{
+        if (existPost.length && Number(existPost[0].password) === password) {
+            await Posts.deleteOne({ _id: postId });
+            res.status(200).json({ message: "삭제완료" });
+        } else {
+            res.status(400).json({ messaege: "비밀번호가 다릅니다" });
+        }
+
+    } catch {
         return res.status(404).json({ message: "postid가 없습니다" });
     }
 
