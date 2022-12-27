@@ -91,13 +91,13 @@ router.delete('/:postId', async(req,res)=>{
     }
     try{
         const existPost = await Posts.find({_id: postId}); 
-        
+        console.log(existPost[0].password, password)
         if(existPost.length && Number(existPost[0].password) === password){
             await Posts.deleteOne({_id:postId});
             res.status(200).json({message:"삭제완료"});
         }else{
             res.status(400).json({messaege:"비밀번호가 다릅니다"});
-        }
+        } 
   
     }catch{
         return res.status(404).json({ message: "postid가 없습니다" });
