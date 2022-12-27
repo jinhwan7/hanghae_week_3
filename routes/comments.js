@@ -66,10 +66,16 @@ router.put('/:commentId', async (req, res) => {
 //댓글 삭제
 router.delete('/:commentId', async (req, res) => {
     const {commentId} = req.params;
+    const {password} = req.body;
+    
     try{
-        await Comments.deleteOne({_id:commentId});     
-
-        res.status(200).json({message:"잘삭제되었습니다"});
+        const existComment = await Comments.find({_id:commentId})
+        if(existComment.length && Number(existComment[0].password) === password){
+            await Comments.deleteOne({_id:commentId});   
+            res.status(200).json({message:"삭제완료"});
+        }else{
+            res.status(400).json({messaege:"비밀번호가 다릅니다"});
+        }
 
     }catch(err){
         console.log(err);
