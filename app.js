@@ -9,10 +9,10 @@ app.use(express.json());
 
 
 app.get('/',(req,res)=>{
-    res.send("점심먹는중입니다 12:30~")
+    res.send("<img src='http://image.dongascience.com/Photo/2019/04/23228568a8de535b2858e7785af57328.jpg'>");
 });
 
-app.use('/api',indexRouter);
+app.use('/',indexRouter);
 
 
 app.listen(port, () =>{

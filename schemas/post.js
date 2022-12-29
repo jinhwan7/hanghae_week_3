@@ -23,6 +23,6 @@ const postSchema = mongoose.Schema({
         type:Date,
         required: true
     }
-},{ timestamps : true, updateAt: false } );
+});
 
 module.exports = mongoose.model('Post',postSchema);
