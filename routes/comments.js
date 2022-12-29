@@ -90,7 +90,7 @@ router.delete('/:commentId', async (req, res) => {
     try {
         const existComment = await Comments.find({ _id: commentId })
         if (existComment.length) {
-            if (Number(existComment[0].password) === password) {
+            if (String(existComment[0].password) === String(password)) {
                 await Comments.deleteOne({ _id: commentId });
                 res.status(200).json({ message: "삭제완료" });
             }else{

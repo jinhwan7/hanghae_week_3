@@ -10,7 +10,18 @@
 // }
 
 // console.log(Boolean())
-const a = [1,2,3,4];
-a.map(v=> v*2);
-console.log(a);
+// const a = [1,2,3,4];
+// a.map(v=> v*2);
+// console.log(a);
+// let a = 0;
+
+// true &&  (a = 12)
+
+// console.log(a)
+
+console.log(a)
+
+var a = function(){
+    console.log('hihi');
+}
 
